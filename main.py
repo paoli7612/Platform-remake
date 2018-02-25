@@ -1,11 +1,5 @@
-# KidsCanCode - Game Development with Pygame video series
-# Jumpy! (a platform game)
-# Art from Kenney.nl
-# Happy Tune by http://opengameart.org/users/syncopika
-# Yippee by http://opengameart.org/users/snabisch
-
-import pygame as pg
-import random
+import pygame,random
+from spritesheet import *
 from settings import *
 from sprites import *
 from os import path
@@ -13,13 +7,13 @@ from os import path
 class Game:
     def __init__(self):
         # initialize game window, etc
-        pg.init()
-        pg.mixer.init()
-        self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption(TITLE)
-        self.clock = pg.time.Clock()
+        pygame.init()
+        pygame.mixer.init()
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption(TITLE)
+        self.clock = pygame.time.Clock()
         self.running = True
-        self.font_name = pg.font.match_font(FONT_NAME)
+        self.font_name = pygame.font.match_font(FONT_NAME)
         self.load_data()
 
     def load_data(self):
@@ -36,25 +30,25 @@ class Game:
         # cloud images
         self.cloud_images = []
         for i in range(1, 4):
-            self.cloud_images.append(pg.image.load(path.join(img_dir, 'cloud{}.png'.format(i))).convert())
+            self.cloud_images.append(pygame.image.load(path.join(img_dir, 'cloud{}.png'.format(i))).convert())
         # load sounds
         self.snd_dir = path.join(self.dir, 'snd')
-        self.jump_sound = pg.mixer.Sound(path.join(self.snd_dir, 'Jump33.wav'))
-        self.boost_sound = pg.mixer.Sound(path.join(self.snd_dir, 'Boost16.wav'))
+        self.jump_sound = pygame.mixer.Sound(path.join(self.snd_dir, 'Jump33.wav'))
+        self.boost_sound = pygame.mixer.Sound(path.join(self.snd_dir, 'Boost16.wav'))
 
     def new(self):
         # start a new game
         self.score = 0
-        self.all_sprites = pg.sprite.LayeredUpdates()
-        self.platforms = pg.sprite.Group()
-        self.powerups = pg.sprite.Group()
-        self.mobs = pg.sprite.Group()
-        self.clouds = pg.sprite.Group()
+        self.all_sprites = pygame.sprite.LayeredUpdates()
+        self.platforms = pygame.sprite.Group()
+        self.powerups = pygame.sprite.Group()
+        self.mobs = pygame.sprite.Group()
+        self.clouds = pygame.sprite.Group()
         self.player = Player(self)
         for plat in PLATFORM_LIST:
             Platform(self, *plat)
         self.mob_timer = 0
-        pg.mixer.music.load(path.join(self.snd_dir, 'Happy Tune.ogg'))
+        pygame.mixer.music.load(path.join(self.snd_dir, 'Happy Tune.ogg'))
         for i in range(8):
             c = Cloud(self)
             c.rect.y += 500
@@ -62,32 +56,32 @@ class Game:
 
     def run(self):
         # Game Loop
-        pg.mixer.music.play(loops=-1)
+        pygame.mixer.music.play(loops=-1)
         self.playing = True
         while self.playing:
             self.clock.tick(FPS)
             self.events()
             self.update()
             self.draw()
-        pg.mixer.music.fadeout(500)
+        pygame.mixer.music.fadeout(500)
 
     def update(self):
         # Game Loop - Update
         self.all_sprites.update()
 
         # spawn a mob?
-        now = pg.time.get_ticks()
+        now = pygame.time.get_ticks()
         if now - self.mob_timer > 5000 + random.choice([-1000, -500, 0, 500, 1000]):
             self.mob_timer = now
             Mob(self)
         # hit mobs?
-        mob_hits = pg.sprite.spritecollide(self.player, self.mobs, False, pg.sprite.collide_mask)
+        mob_hits = pygame.sprite.spritecollide(self.player, self.mobs, False, pygame.sprite.collide_mask)
         if mob_hits:
             self.playing = False
 
         # check if player hits a platform - only if falling
         if self.player.vel.y > 0:
-            hits = pg.sprite.spritecollide(self.player, self.platforms, False)
+            hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
             if hits:
                 lowest = hits[0]
                 for hit in hits:
@@ -116,7 +110,7 @@ class Game:
                     self.score += 10
 
         # if player hits powerup
-        pow_hits = pg.sprite.spritecollide(self.player, self.powerups, True)
+        pow_hits = pygame.sprite.spritecollide(self.player, self.powerups, True)
         for pow in pow_hits:
             if pow.type == 'boost':
                 self.boost_sound.play()
@@ -140,17 +134,17 @@ class Game:
 
     def events(self):
         # Game Loop - events
-        for event in pg.event.get():
+        for event in pygame.event.get():
             # check for closing window
-            if event.type == pg.QUIT:
+            if event.type == pygame.QUIT:
                 if self.playing:
                     self.playing = False
                 self.running = False
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_SPACE:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
                     self.player.jump()
-            if event.type == pg.KEYUP:
-                if event.key == pg.K_SPACE:
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
                     self.player.jump_cut()
 
     def draw(self):
@@ -159,27 +153,27 @@ class Game:
         self.all_sprites.draw(self.screen)
         self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 15)
         # *after* drawing everything, flip the display
-        pg.display.flip()
+        pygame.display.flip()
 
     def show_start_screen(self):
         # game splash/start screen
-        pg.mixer.music.load(path.join(self.snd_dir, 'Yippee.ogg'))
-        pg.mixer.music.play(loops=-1)
+        pygame.mixer.music.load(path.join(self.snd_dir, 'Yippee.ogg'))
+        pygame.mixer.music.play(loops=-1)
         self.screen.fill(BGCOLOR)
         self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
         self.draw_text("Arrows to move, Space to jump", 22, WHITE, WIDTH / 2, HEIGHT / 2)
         self.draw_text("Press a key to play", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
         self.draw_text("High Score: " + str(self.highscore), 22, WHITE, WIDTH / 2, 15)
-        pg.display.flip()
+        pygame.display.flip()
         self.wait_for_key()
-        pg.mixer.music.fadeout(500)
+        pygame.mixer.music.fadeout(500)
 
     def show_go_screen(self):
         # game over/continue
         if not self.running:
             return
-        pg.mixer.music.load(path.join(self.snd_dir, 'Yippee.ogg'))
-        pg.mixer.music.play(loops=-1)
+        pygame.mixer.music.load(path.join(self.snd_dir, 'Yippee.ogg'))
+        pygame.mixer.music.play(loops=-1)
         self.screen.fill(BGCOLOR)
         self.draw_text("GAME OVER", 48, WHITE, WIDTH / 2, HEIGHT / 4)
         self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH / 2, HEIGHT / 2)
@@ -191,23 +185,23 @@ class Game:
                 f.write(str(self.score))
         else:
             self.draw_text("High Score: " + str(self.highscore), 22, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
-        pg.display.flip()
+        pygame.display.flip()
         self.wait_for_key()
-        pg.mixer.music.fadeout(500)
+        pygame.mixer.music.fadeout(500)
 
     def wait_for_key(self):
         waiting = True
         while waiting:
             self.clock.tick(FPS)
-            for event in pg.event.get():
-                if event.type == pg.QUIT:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
                     waiting = False
                     self.running = False
-                if event.type == pg.KEYUP:
+                if event.type == pygame.KEYUP:
                     waiting = False
 
     def draw_text(self, text, size, color, x, y):
-        font = pg.font.Font(self.font_name, size)
+        font = pygame.font.Font(self.font_name, size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x, y)
@@ -219,4 +213,4 @@ while g.running:
     g.new()
     g.show_go_screen()
 
-pg.quit()
+pygame.quit()
