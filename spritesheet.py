@@ -19,7 +19,15 @@ class Images:
         self.get_image = spritesheet.get_image
         self.load_platforms()
         self.load_bunny()
-        self.coin = self.get_image(707, 296, 84, 84)
+        self.load_coin()
+
+    def load_coin(self):
+        self.coin = [self.get_image(707, 296, 84, 84),
+                    self.get_image(826, 206, 66, 84),
+                    self.get_image(899, 116, 50, 84),
+                    self.get_image(670, 406, 14, 84),
+                    pygame.transform.flip(self.get_image(899, 116, 50, 84), True, False),
+                    pygame.transform.flip(self.get_image(826, 206, 66, 84), True, False)]
 
     def load_platforms(self):
         self.platforms = {"grass":[self.get_image(0, 288, 380, 94),

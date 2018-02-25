@@ -97,7 +97,6 @@ class Cloud(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = choice(self.game.cloud_images)
-        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         scale = randrange(50, 101) / 100
         self.image = pygame.transform.scale(self.image, (int(self.rect.width * scale),
@@ -118,7 +117,6 @@ class Platform(pygame.sprite.Sprite):
         images = [self.game.spritesheet.images.platforms["grass"][0],
                   self.game.spritesheet.images.platforms["grass"][1]]
         self.image = choice(images)
-        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -136,7 +134,6 @@ class Pow(pygame.sprite.Sprite):
         self.plat = plat
         self.type = choice(['boost'])
         self.image = self.game.spritesheet.get_image(820, 1805, 71, 70)
-        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.centerx = self.plat.rect.centerx
         self.rect.bottom = self.plat.rect.top - 5
@@ -153,9 +150,7 @@ class Mob(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image_up = self.game.spritesheet.get_image(566, 510, 122, 139)
-        self.image_up.set_colorkey(BLACK)
         self.image_down = self.game.spritesheet.get_image(568, 1534, 122, 135)
-        self.image_down.set_colorkey(BLACK)
         self.image = self.image_up
         self.rect = self.image.get_rect()
         self.rect.centerx = choice([-100, WIDTH + 100])
@@ -190,8 +185,10 @@ class Coin(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.plat = plat
-        self.image = self.game.spritesheet.images.coin
-        self.image.set_colorkey(BLACK)
+        self.images = self.game.spritesheet.images.coin
+        self.current_frame = 0
+        self.last_update = 0
+        self.image = self.images[self.current_frame]
         self.rect = self.image.get_rect()
         self.rect.centerx = self.plat.rect.centerx
         self.rect.bottom = self.plat.rect.top - 5
@@ -200,3 +197,12 @@ class Coin(pygame.sprite.Sprite):
         self.rect.bottom = self.plat.rect.top - 5
         if not self.game.platforms.has(self.plat):
             self.kill()
+        now = pygame.time.get_ticks()
+        if now - self.last_update > COIN_SPEED:
+            self.last_update = now
+            self.current_frame = (self.current_frame + 1) % len(self.images)
+            x = self.rect.centerx
+            self.image = self.images[self.current_frame]
+            self.rect = self.image.get_rect()
+            self.rect.bottom = self.plat.rect.top - 5
+            self.rect.centerx = x
