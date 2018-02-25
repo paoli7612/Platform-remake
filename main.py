@@ -20,17 +20,17 @@ class Game:
         # load high score
         self.dir = path.dirname(__file__)
         with open(path.join(self.dir, HS_FILE), 'r') as f:
-            try:
-                self.highscore = int(f.read())
-            except:
-                self.highscore = 0
+            try: self.highscore = int(f.read())
+            except: self.highscore = 0
         # load spritesheet image
         img_dir = path.join(self.dir, 'img')
         self.spritesheet = Spritesheet(path.join(img_dir, SPRITESHEET))
         # cloud images
         self.cloud_images = []
         for i in range(1, 4):
-            self.cloud_images.append(pygame.image.load(path.join(img_dir, 'cloud{}.png'.format(i))).convert())
+            img = pygame.image.load(path.join(img_dir, 'cloud{}.png'.format(i))).convert()
+            img.set_colorkey(BLACK)
+            self.cloud_images.append(img)
         # load sounds
         self.snd_dir = path.join(self.dir, 'snd')
         self.jump_sound = pygame.mixer.Sound(path.join(self.snd_dir, 'Jump33.wav'))
