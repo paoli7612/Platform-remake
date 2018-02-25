@@ -120,9 +120,10 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        if randrange(100) < POW_SPAWN_PCT:
+        prob = randrange(100)
+        if prob < POW_SPAWN_PCT:
             Pow(self.game, self)
-        elif randrange(100) < COIN_SPAWN_PCT:
+        elif prob < COIN_SPAWN_PCT:
             Coin(self.game, self)
 
 class Pow(pygame.sprite.Sprite):
@@ -185,7 +186,13 @@ class Coin(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.plat = plat
-        self.images = self.game.spritesheet.images.coin
+        types = self.game.spritesheet.images.coin.keys()
+        prob = randrange(100)
+        for k in COINS_PCT:
+            if prob <= COINS_PCT[k]: self.type = k; break
+        self.type = choice(types)
+        self.value = COINS_VALUE[self.type]
+        self.images = self.game.spritesheet.images.coin[self.type]
         self.current_frame = 0
         self.last_update = 0
         self.image = self.images[self.current_frame]

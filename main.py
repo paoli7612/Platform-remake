@@ -122,7 +122,7 @@ class Game:
         coin_hits = pygame.sprite.spritecollide(self.player, self.coins, True)
         for coin in coin_hits:
             coin.kill()
-            self.score += 100
+            self.score += coin.value
 
         # Die!
         if self.player.rect.bottom > HEIGHT:

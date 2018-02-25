@@ -22,12 +22,24 @@ class Images:
         self.load_coin()
 
     def load_coin(self):
-        self.coin = [self.get_image(707, 296, 84, 84),
+        self.coin = {"bronze":[self.get_image(707, 296, 84, 84),
                     self.get_image(826, 206, 66, 84),
                     self.get_image(899, 116, 50, 84),
                     self.get_image(670, 406, 14, 84),
                     pygame.transform.flip(self.get_image(899, 116, 50, 84), True, False),
-                    pygame.transform.flip(self.get_image(826, 206, 66, 84), True, False)]
+                    pygame.transform.flip(self.get_image(826, 206, 66, 84), True, False)],
+                    "silver":[self.get_image(584, 406, 84, 84),
+                    self.get_image(852, 1003, 66, 84),
+                    self.get_image(899, 1219, 50, 84),
+                    self.get_image(662, 651, 14, 84),
+                    pygame.transform.flip(self.get_image(852, 1003, 66, 84), True, False),
+                    pygame.transform.flip(self.get_image(899, 1219, 50, 84), True, False)],
+                    "gold":[self.get_image(698, 1931, 84, 84),
+                    self.get_image(829, 0, 66, 84),
+                    self.get_image(897, 1574, 50, 84),
+                    self.get_image(645, 651, 15, 84),
+                    pygame.transform.flip(self.get_image(829, 0, 66, 84), True, False),
+                    pygame.transform.flip(self.get_image(897, 1574, 50, 84), True, False)]}
 
     def load_platforms(self):
         self.platforms = {"grass":[self.get_image(0, 288, 380, 94),

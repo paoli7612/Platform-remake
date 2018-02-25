@@ -13,12 +13,15 @@ PLAYER_FRICTION = -0.12
 PLAYER_GRAV = 0.8
 PLAYER_JUMP = 20
 
+# Coins properties
 COIN_SPEED = 100
+COINS_VALUE = {"gold":100, "silver":25, "bronze":10}
+COIN_SPAWN_PCT = 20
+COINS_PCT = {"gold":10, "silver":30, "bronze":60}
 
 # Game properties
 BOOST_POWER = 60
 POW_SPAWN_PCT = 7
-COIN_SPAWN_PCT = 10
 MOB_FREQ = 5000
 PLAYER_LAYER = 2
 PLATFORM_LAYER = 1
