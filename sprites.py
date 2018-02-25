@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping = False
         self.current_frame = 0
         self.last_update = 0
-        self.life = 2
+        self.life = 0
         self.images = self.game.spritesheet.images.bunny
         self.image = self.images.standing[0]
         self.rect = self.image.get_rect()

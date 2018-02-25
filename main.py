@@ -76,9 +76,13 @@ class Game:
             self.mob_timer = now
             Mob(self)
         # hit mobs?
-        mob_hits = pygame.sprite.spritecollide(self.player, self.mobs, False, pygame.sprite.collide_mask)
-        if mob_hits:
-            self.playing = False
+
+        mob_hits = pygame.sprite.spritecollide(self.player, self.mobs, True)
+        for mob in mob_hits:
+            if self.player.life > 0:
+                self.player.life -= 1
+                mob.kill()
+            else: self.playing = False
 
         # check if player hits a platform - only if falling
         if self.player.vel.y > 0:
