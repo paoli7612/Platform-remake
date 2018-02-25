@@ -36,7 +36,7 @@ PLATFORM_LIST = [(0, HEIGHT - 60),
                  (125, HEIGHT - 350),
                  (350, 200),
                  (175, 100)]
-
+PLATFORM_TYPES = ["grass","cake","sand","snow","wood"]
 # define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

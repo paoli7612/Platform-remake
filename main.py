@@ -172,8 +172,8 @@ class Game:
         self.all_sprites.draw(self.screen)
         self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 15)
         for sy in range(self.player.life):
-            self.screen.blit(self.spritesheet.images.powerup["life"],(2 + 30*sy,2))
-            # *after* drawing everything, flip the display
+            self.screen.blit(self.spritesheet.images.life,(2 + 30*sy,2))
+        # *after* drawing everything, flip the display
         pygame.display.flip()
 
     def show_start_screen(self):

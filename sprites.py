@@ -113,8 +113,8 @@ class Platform(pygame.sprite.Sprite):
         self.groups = game.all_sprites, game.platforms
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        images = [self.game.spritesheet.images.platforms["grass"][0],
-                  self.game.spritesheet.images.platforms["grass"][1]]
+        self.type = choice(PLATFORM_TYPES)
+        images = self.game.spritesheet.images.platforms[self.type]
         self.image = choice(images)
         self.rect = self.image.get_rect()
         self.rect.x = x
