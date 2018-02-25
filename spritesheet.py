@@ -19,6 +19,7 @@ class Images:
         self.get_image = spritesheet.get_image
         self.load_platforms()
         self.load_bunny()
+        self.coin = self.get_image(707, 296, 84, 84)
 
     def load_platforms(self):
         self.platforms = {"grass":[self.get_image(0, 288, 380, 94),

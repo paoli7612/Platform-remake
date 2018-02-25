@@ -43,6 +43,7 @@ class Game:
         self.platforms = pygame.sprite.Group()
         self.powerups = pygame.sprite.Group()
         self.mobs = pygame.sprite.Group()
+        self.coins = pygame.sprite.Group()
         self.clouds = pygame.sprite.Group()
         self.player = Player(self)
         for plat in PLATFORM_LIST:
@@ -116,6 +117,12 @@ class Game:
                 self.boost_sound.play()
                 self.player.vel.y = -BOOST_POWER
                 self.player.jumping = False
+
+        # if player hits coin
+        coin_hits = pygame.sprite.spritecollide(self.player, self.coins, True)
+        for coin in coin_hits:
+            coin.kill()
+            self.score += 100
 
         # Die!
         if self.player.rect.bottom > HEIGHT:
