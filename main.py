@@ -117,6 +117,9 @@ class Game:
                 self.boost_sound.play()
                 self.player.vel.y = -BOOST_POWER
                 self.player.jumping = False
+            if pow.type == 'life':
+                self.player.life += 1
+                pow.kill()
 
         # if player hits coin
         coin_hits = pygame.sprite.spritecollide(self.player, self.coins, True)
@@ -126,10 +129,15 @@ class Game:
 
         # Die!
         if self.player.rect.bottom > HEIGHT:
-            for sprite in self.all_sprites:
-                sprite.rect.y -= max(self.player.vel.y, 10)
-                if sprite.rect.bottom < 0:
-                    sprite.kill()
+            if self.player.life > 0:
+                self.player.life -= 1
+                self.player.vel.y = -BOOST_POWER/2
+                self.player.jumping = False
+            else:
+                for sprite in self.all_sprites:
+                    sprite.rect.y -= max(self.player.vel.y, 10)
+                    if sprite.rect.bottom < 0:
+                        sprite.kill()
         if len(self.platforms) == 0:
             self.playing = False
 
@@ -159,7 +167,9 @@ class Game:
         self.screen.fill(BGCOLOR)
         self.all_sprites.draw(self.screen)
         self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 15)
-        # *after* drawing everything, flip the display
+        for sy in range(self.player.life):
+            self.screen.blit(self.spritesheet.images.powerup["life"],(2 + 30*sy,2))
+            # *after* drawing everything, flip the display
         pygame.display.flip()
 
     def show_start_screen(self):

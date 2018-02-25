@@ -14,6 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.jumping = False
         self.current_frame = 0
         self.last_update = 0
+        self.life = 2
         self.images = self.game.spritesheet.images.bunny
         self.image = self.images.standing[0]
         self.rect = self.image.get_rect()
@@ -73,10 +74,8 @@ class Player(pygame.sprite.Sprite):
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % len(self.images.walking_l)
                 bottom = self.rect.bottom
-                if self.vel.x > 0:
-                    self.image = self.images.walking_r[self.current_frame]
-                else:
-                    self.image = self.images.walking_l[self.current_frame]
+                if self.vel.x > 0: self.image = self.images.walking_r[self.current_frame]
+                else: self.image = self.images.walking_l[self.current_frame]
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
         # show idle animation
@@ -133,8 +132,8 @@ class Pow(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.plat = plat
-        self.type = choice(['boost'])
-        self.image = self.game.spritesheet.get_image(820, 1805, 71, 70)
+        self.type = choice(['boost','life'])
+        self.image = self.game.spritesheet.images.powerup[self.type]
         self.rect = self.image.get_rect()
         self.rect.centerx = self.plat.rect.centerx
         self.rect.bottom = self.plat.rect.top - 5

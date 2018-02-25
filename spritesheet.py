@@ -20,7 +20,11 @@ class Images:
         self.load_platforms()
         self.load_bunny()
         self.load_coin()
+        self.load_powerups()
 
+    def load_powerups(self):
+        self.powerup = {"boost": self.get_image(820,1805,71,70),
+                        "life": self.get_image(826,1220,71,70)}
     def load_coin(self):
         self.coin = {"bronze":[self.get_image(707, 296, 84, 84),
                     self.get_image(826, 206, 66, 84),
