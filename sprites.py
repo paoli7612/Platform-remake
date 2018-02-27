@@ -119,11 +119,10 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        Decor(game,self)
         prob = randrange(100)
-        if prob < POW_SPAWN_PCT:
-            Pow(self.game, self)
-        elif prob < COIN_SPAWN_PCT:
-            Coin(self.game, self)
+        if prob < POW_SPAWN_PCT: Pow(self.game, self)
+        elif prob < COIN_SPAWN_PCT: Coin(self.game, self)
 
 class Pow(pygame.sprite.Sprite):
     def __init__(self, game, plat):
@@ -212,3 +211,23 @@ class Coin(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.rect.bottom = self.plat.rect.top - 5
             self.rect.centerx = x
+
+class Decor(pygame.sprite.Sprite):
+    def __init__(self, game, plat):
+        self._layer = DECOR_LAYER
+        pygame.sprite.Sprite.__init__(self, game.all_decors)
+        self.game = game
+        self.plat = plat
+        self.type = self.plat.type
+        if not self.type in self.game.spritesheet.images.decors:
+            self.kill()
+            return
+        self.image = self.game.spritesheet.images.decors[self.type]
+        self.rect = self.image.get_rect()
+        self.rect.centerx = self.plat.rect.centerx
+        self.rect.bottom = self.plat.rect.top - 5
+
+    def update(self):
+        self.rect.bottom = self.plat.rect.top
+        if not self.game.platforms.has(self.plat):
+            self.kill()

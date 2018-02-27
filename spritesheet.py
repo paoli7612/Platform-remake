@@ -21,6 +21,10 @@ class Images:
         self.load_bunny()
         self.load_coin()
         self.load_powerups()
+        self.load_decors()
+
+    def load_decors(self):
+        self.decors = {"sand": self.get_image(707,134,117,160)}
 
     def load_powerups(self):
         self.powerup = {"boost": self.get_image(820,1805,71,70),

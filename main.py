@@ -45,6 +45,7 @@ class Game:
         self.mobs = pygame.sprite.Group()
         self.coins = pygame.sprite.Group()
         self.clouds = pygame.sprite.Group()
+        self.all_decors = pygame.sprite.Group()
         self.player = Player(self)
         for plat in PLATFORM_LIST:
             Platform(self, *plat)
@@ -69,6 +70,7 @@ class Game:
     def update(self):
         # Game Loop - Update
         self.all_sprites.update()
+        self.all_decors.update()
 
         # spawn a mob?
         now = pygame.time.get_ticks()
@@ -169,6 +171,7 @@ class Game:
     def draw(self):
         # Game Loop - draw
         self.screen.fill(BGCOLOR)
+        self.all_decors.draw(self.screen)
         self.all_sprites.draw(self.screen)
         self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 15)
         for sy in range(self.player.life):
