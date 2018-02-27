@@ -14,6 +14,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.font_name = pygame.font.match_font(FONT_NAME)
+        self.show_loading_screen()
         self.load_data()
 
     def load_data(self):
@@ -209,6 +210,13 @@ class Game:
         pygame.display.flip()
         self.wait_for_key()
         pygame.mixer.music.fadeout(500)
+
+    def show_loading_screen(self):
+        self.screen.fill(BGCOLOR)
+        self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Loading", 22, WHITE, WIDTH / 2, HEIGHT / 2)
+
+        pygame.display.flip()
 
     def wait_for_key(self):
         waiting = True
