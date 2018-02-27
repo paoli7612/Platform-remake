@@ -215,7 +215,7 @@ class Coin(pygame.sprite.Sprite):
 class Decor(pygame.sprite.Sprite):
     def __init__(self, game, plat):
         self._layer = DECOR_LAYER
-        pygame.sprite.Sprite.__init__(self, game.all_decors)
+        pygame.sprite.Sprite.__init__(self, game.all_sprites)
         self.game = game
         self.plat = plat
         self.type = self.plat.type

@@ -24,7 +24,8 @@ class Images:
         self.load_decors()
 
     def load_decors(self):
-        self.decors = {"sand": self.get_image(707,134,117,160)}
+        self.decors = {"sand": self.get_image(707,134,117,160),
+                        "grass": self.get_image(784,1931,82,70)}
 
     def load_powerups(self):
         self.powerup = {"boost": self.get_image(820,1805,71,70),
