@@ -119,10 +119,11 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        Decor(game,self)
+
         prob = randrange(100)
         if prob < POW_SPAWN_PCT: Pow(self.game, self)
         elif prob < COIN_SPAWN_PCT: Coin(self.game, self)
+        if prob < DECOR_SPAWN_PCT: Decor(game,self)
 
 class Pow(pygame.sprite.Sprite):
     def __init__(self, game, plat):

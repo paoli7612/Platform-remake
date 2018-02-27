@@ -16,6 +16,7 @@ class Game:
         self.font_name = pygame.font.match_font(FONT_NAME)
         self.show_loading_screen()
         self.load_data()
+        self.money = 0
 
     def load_data(self):
         # load high score
@@ -130,7 +131,7 @@ class Game:
         coin_hits = pygame.sprite.spritecollide(self.player, self.coins, True)
         for coin in coin_hits:
             coin.kill()
-            self.score += coin.value
+            self.money += coin.value
 
         # Die!
         if self.player.rect.bottom > HEIGHT:
@@ -173,7 +174,10 @@ class Game:
         self.all_sprites.draw(self.screen)
         self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 15)
         for sy in range(self.player.life):
-            self.screen.blit(self.spritesheet.images.life,(2 + 30*sy,2))
+            self.screen.blit(self.spritesheet.images.life,(2 + 30*sy,10))
+        self.screen.blit(self.spritesheet.images.money,(WIDTH - 110,10))
+        self.draw_text(str(self.money), 22, WHITE,WIDTH-30, 15)
+
         # *after* drawing everything, flip the display
         pygame.display.flip()
 

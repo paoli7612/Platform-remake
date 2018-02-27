@@ -22,15 +22,29 @@ class Images:
         self.load_coin()
         self.load_powerups()
         self.load_decors()
+        self.load_icons()
+
+    def load_icons(self):
+        self.life = self.get_image(868,1936,52,71)
+        bronze = self.get_image(329,1390,60,61)
+        silver = self.get_image(307,1981,61,61)
+        gold = self.get_image(244,1981,61,61)
+        self.money = pygame.Surface((90,61))
+        self.money.blit(gold,(0,0))
+        self.money.blit(silver,(15,0))
+        self.money.blit(bronze,(30,0))
+        self.money.set_colorkey((0,0,0))
+
 
     def load_decors(self):
         self.decors = {"sand": self.get_image(707,134,117,160),
-                        "grass": self.get_image(784,1931,82,70)}
+                        "grass": self.get_image(784,1931,82,70),
+                        "wood": self.get_image(814,1574,81,85)}
 
     def load_powerups(self):
         self.powerup = {"boost": self.get_image(820,1805,71,70),
                         "life": self.get_image(826,1220,71,70)}
-        self.life = self.get_image(868,1936,52,71)
+
     def load_coin(self):
         self.coin = {"bronze":[self.get_image(707, 296, 84, 84),
                     self.get_image(826, 206, 66, 84),
