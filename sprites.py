@@ -22,6 +22,7 @@ class Player(pygame.sprite.Sprite):
         self.pos = vec(40, HEIGHT - 100)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
+        self.alive = True
 
     def jump_cut(self):
         if self.jumping:
@@ -38,14 +39,20 @@ class Player(pygame.sprite.Sprite):
             self.jumping = True
             self.vel.y = -PLAYER_JUMP
 
+    def die(self):
+        self.alive = False
+        self.image = self.images.falling
+        self.game.all_platforms = pygame.sprite.Group()
+
     def update(self):
-        self.animate()
         self.acc = vec(0, PLAYER_GRAV)
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.acc.x = -PLAYER_ACC
-        if keys[pygame.K_RIGHT]:
-            self.acc.x = PLAYER_ACC
+        if self.alive:
+            self.animate()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_LEFT]:
+                self.acc.x = -PLAYER_ACC
+            if keys[pygame.K_RIGHT]:
+                self.acc.x = PLAYER_ACC
 
         # apply friction
         self.acc.x += self.vel.x * PLAYER_FRICTION

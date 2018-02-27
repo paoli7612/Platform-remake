@@ -84,10 +84,11 @@ class Game:
             if self.player.life > 0:
                 self.player.life -= 1
                 mob.kill()
-            else: self.playing = False
+            else:
+                self.player.die()
 
         # check if player hits a platform - only if falling
-        if self.player.vel.y > 0:
+        if self.player.vel.y > 0 and self.player.alive:
             hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
             if hits:
                 lowest = hits[0]

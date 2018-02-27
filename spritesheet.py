@@ -88,4 +88,5 @@ class Images:
             walking_l = [pygame.transform.flip(walking_r[0], True, False),
                         pygame.transform.flip(walking_r[1], True, False)]
             jumping = self.get_image(382, 763, 150, 181)
+            falling = self.get_image(382, 946, 150, 174)
         self.bunny = Frames
