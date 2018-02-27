@@ -135,7 +135,7 @@ class Game:
         if self.player.rect.bottom > HEIGHT:
             if self.player.life > 0:
                 self.player.life -= 1
-                self.player.vel.y = -BOOST_POWER/2
+                self.player.vel.y = -HEIGHT/20
                 self.player.jumping = False
             else:
                 for sprite in self.all_sprites:
@@ -146,7 +146,7 @@ class Game:
             self.playing = False
 
         # spawn new platforms to keep same average number
-        while len(self.platforms) < 6:
+        while len(self.platforms) < TOT_PLATFORMS:
             width = random.randrange(50, 100)
             Platform(self, random.randrange(0, WIDTH - width),
                      random.randrange(-75, -30))
@@ -228,10 +228,14 @@ class Game:
         text_rect.midtop = (x, y)
         self.screen.blit(text_surface, text_rect)
 
-g = Game()
-g.show_start_screen()
-while g.running:
-    g.new()
-    g.show_go_screen()
+def main():
+    g = Game()
+    g.show_start_screen()
+    while g.running:
+        g.new()
+        g.show_go_screen()
+    pygame.quit()
 
-pygame.quit()
+
+if __name__ == "__main__":
+    main()

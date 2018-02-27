@@ -1,7 +1,13 @@
+try:
+    from gtk import gdk
+    HEIGHT = gdk.screen_height() - 200
+except:
+    HEIGHT = gdk.screen_height() - 200
 # game options/settings
 TITLE = "Jumpy!"
 WIDTH = 480
-HEIGHT = 600
+
+TOT_PLATFORMS = HEIGHT/100 - 2
 FPS = 60
 FONT_NAME = 'arial'
 HS_FILE = "highscore.txt"
@@ -20,7 +26,7 @@ COIN_SPAWN_PCT = 20
 COINS_PCT = {"gold":10, "silver":30, "bronze":60}
 
 # Game properties
-BOOST_POWER = 60
+BOOST_POWER = HEIGHT/14
 POW_SPAWN_PCT = 7
 MOB_FREQ = 5000
 PLAYER_LAYER = 2
@@ -31,11 +37,12 @@ COIN_LAYER = 3
 CLOUD_LAYER = 0
 
 # Starting platforms
-PLATFORM_LIST = [(0, HEIGHT - 60),
-                 (WIDTH / 2 - 50, HEIGHT * 3 / 4 - 50),
-                 (125, HEIGHT - 350),
-                 (350, 200),
-                 (175, 100)]
+from random import randrange
+PLATFORM_LIST = [(0, HEIGHT - 60)]
+for p in range(TOT_PLATFORMS):
+    PLATFORM_LIST += [(randrange(0,WIDTH-200),p*HEIGHT/TOT_PLATFORMS)]
+
+
 PLATFORM_TYPES = ["grass","cake","sand","snow","wood"]
 # define colors
 WHITE = (255, 255, 255)
