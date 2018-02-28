@@ -171,19 +171,15 @@ class Mob(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.vx
         self.vy += self.dy
-        if self.vy > 3 or self.vy < -3:
-            self.dy *= -1
+        if self.vy > 3 or self.vy < -3: self.dy *= -1
         center = self.rect.center
-        if self.dy < 0:
-            self.image = self.image_up
-        else:
-            self.image = self.image_down
+        if self.dy < 0: self.image = self.image_up
+        else: self.image = self.image_down
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.center = center
         self.rect.y += self.vy
-        if self.rect.left > WIDTH + 100 or self.rect.right < -100:
-            self.kill()
+        if self.rect.left > WIDTH + 100 or self.rect.right < -100: self.kill()
 
 class Coin(pygame.sprite.Sprite):
     def __init__(self, game, plat):
@@ -208,8 +204,7 @@ class Coin(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.bottom = self.plat.rect.top - 5
-        if not self.game.platforms.has(self.plat):
-            self.kill()
+        if not self.game.platforms.has(self.plat):self.kill()
         now = pygame.time.get_ticks()
         if now - self.last_update > COIN_SPEED:
             self.last_update = now
@@ -228,8 +223,7 @@ class Decor(pygame.sprite.Sprite):
         self.plat = plat
         self.type = self.plat.type
         if not self.type in self.game.spritesheet.images.decors:
-            self.kill()
-            return
+            self.kill(); return
         self.image = self.game.spritesheet.images.decors[self.type]
         self.rect = self.image.get_rect()
         self.rect.centerx = self.plat.rect.centerx
@@ -237,5 +231,4 @@ class Decor(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.bottom = self.plat.rect.top
-        if not self.game.platforms.has(self.plat):
-            self.kill()
+        if not self.game.platforms.has(self.plat): self.kill()

@@ -152,7 +152,7 @@ class Game:
         while len(self.platforms) < TOT_PLATFORMS:
             width = random.randrange(50, 100)
             Platform(self, random.randrange(0, WIDTH - width),
-                     random.randrange(-75, -30))
+                     random.randrange(-50, -40))
 
     def events(self):
         # Game Loop - events

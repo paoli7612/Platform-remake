@@ -7,7 +7,7 @@ except:
 TITLE = "Jumpy!"
 WIDTH = 480
 
-TOT_PLATFORMS = HEIGHT/100 - 2
+TOT_PLATFORMS = HEIGHT/100 - 1
 FPS = 60
 FONT_NAME = 'arial'
 HS_FILE = "highscore.txt"
@@ -26,7 +26,7 @@ COIN_SPAWN_PCT = 20
 COINS_PCT = {"gold":10, "silver":30, "bronze":60}
 
 # Game properties
-BOOST_POWER = HEIGHT/14
+BOOST_POWER = HEIGHT/12
 POW_SPAWN_PCT = 7
 DECOR_SPAWN_PCT = 50
 MOB_FREQ = 5000
