@@ -6,6 +6,7 @@ except:
 # game options/settings
 TITLE = "Jumpy!"
 WIDTH = 480
+SIZE = (WIDTH,HEIGHT)
 
 TOT_PLATFORMS = HEIGHT/100 - 1
 FPS = 60

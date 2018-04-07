@@ -1,42 +1,46 @@
-import pygame,random
+import pygame,random,os
 from spritesheet import *
 from settings import *
 from sprites import *
-from os import path
+
 
 class Game:
     def __init__(self):
         # initialize game window, etc
         pygame.init()
         pygame.mixer.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        self.screen = pygame.display.set_mode(SIZE)
         pygame.display.set_caption(TITLE)
         self.clock = pygame.time.Clock()
         self.running = True
         self.font_name = pygame.font.match_font(FONT_NAME)
         self.show_loading_screen()
         self.load_data()
-        self.money = 0
 
     def load_data(self):
         # load high score
-        self.dir = path.dirname(__file__)
-        with open(path.join(self.dir, HS_FILE), 'r') as f:
-            try: self.highscore = int(f.read())
-            except: self.highscore = 0
+        self.dir = os.path.dirname(__file__)
+        if HS_FILE in os.listdir(os.getcwd()):
+            with open(os.path.join(self.dir, HS_FILE), 'r') as f:
+                try:
+                    hm = f.read().split("-")
+                    self.highscore = int(hm[0])
+                    self.money = int(hm[1])
+                except: self.highscore = 0
+        else: open(os.path.join(self.dir, HS_FILE), 'w'); self.highscore = 0; self.money = 0
         # load spritesheet image
-        img_dir = path.join(self.dir, 'img')
-        self.spritesheet = Spritesheet(path.join(img_dir, SPRITESHEET))
+        img_dir = os.path.join(self.dir, 'img')
+        self.spritesheet = Spritesheet(os.path.join(img_dir, SPRITESHEET))
         # cloud images
         self.cloud_images = []
         for i in range(1, 4):
-            img = pygame.image.load(path.join(img_dir, 'cloud{}.png'.format(i))).convert()
+            img = pygame.image.load(os.path.join(img_dir, 'cloud{}.png'.format(i))).convert()
             img.set_colorkey(BLACK)
             self.cloud_images.append(img)
         # load sounds
-        self.snd_dir = path.join(self.dir, 'snd')
-        self.jump_sound = pygame.mixer.Sound(path.join(self.snd_dir, 'Jump33.wav'))
-        self.boost_sound = pygame.mixer.Sound(path.join(self.snd_dir, 'Boost16.wav'))
+        self.snd_dir = os.path.join(self.dir, 'snd')
+        self.jump_sound = pygame.mixer.Sound(os.path.join(self.snd_dir, 'Jump33.wav'))
+        self.boost_sound = pygame.mixer.Sound(os.path.join(self.snd_dir, 'Boost16.wav'))
 
     def new(self):
         # start a new game
@@ -51,7 +55,7 @@ class Game:
         for plat in PLATFORM_LIST:
             Platform(self, *plat)
         self.mob_timer = 0
-        pygame.mixer.music.load(path.join(self.snd_dir, 'Happy Tune.ogg'))
+        pygame.mixer.music.load(os.path.join(self.snd_dir, 'Happy Tune.ogg'))
         for i in range(8):
             c = Cloud(self)
             c.rect.y += 500
@@ -184,7 +188,7 @@ class Game:
 
     def show_start_screen(self):
         # game splash/start screen
-        pygame.mixer.music.load(path.join(self.snd_dir, 'Yippee.ogg'))
+        pygame.mixer.music.load(os.path.join(self.snd_dir, 'Yippee.ogg'))
         pygame.mixer.music.play(loops=-1)
         self.screen.fill(BGCOLOR)
         self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
@@ -199,7 +203,7 @@ class Game:
         # game over/continue
         if not self.running:
             return
-        pygame.mixer.music.load(path.join(self.snd_dir, 'Yippee.ogg'))
+        pygame.mixer.music.load(os.path.join(self.snd_dir, 'Yippee.ogg'))
         pygame.mixer.music.play(loops=-1)
         self.screen.fill(BGCOLOR)
         self.draw_text("GAME OVER", 48, WHITE, WIDTH / 2, HEIGHT / 4)
@@ -208,11 +212,10 @@ class Game:
         if self.score > self.highscore:
             self.highscore = self.score
             self.draw_text("NEW HIGH SCORE!", 22, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
-            with open(path.join(self.dir, HS_FILE), 'w') as f:
-                f.write(str(self.score))
         else:
             self.draw_text("High Score: " + str(self.highscore), 22, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
         pygame.display.flip()
+        self.save_data()
         self.wait_for_key()
         pygame.mixer.music.fadeout(500)
 
@@ -233,6 +236,12 @@ class Game:
                     self.running = False
                 if event.type == pygame.KEYUP:
                     waiting = False
+
+    def save_data(self):
+        with open(os.path.join(self.dir, HS_FILE), 'w') as f:
+            print(self.money)
+            f.write(str(self.highscore) + "-" + str(self.money))
+            f.close()
 
     def draw_text(self, text, size, color, x, y):
         font = pygame.font.Font(self.font_name, size)
