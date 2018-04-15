@@ -54,6 +54,8 @@ class Game:
         self.coins = pygame.sprite.Group()
         self.clouds = pygame.sprite.Group()
         self.player = Player(self)
+        self.sun = Sun(self)
+
         for plat in PLATFORM_LIST:
             Platform(self, *plat)
         self.mob_timer = 0
@@ -132,7 +134,7 @@ class Game:
                 self.player.jumping = False
             if pow.type == 'life':
                 self.player.life += 1
-                pow.kill()
+            pow.kill()
 
         # if player hits coin
         coin_hits = pygame.sprite.spritecollide(self.player, self.coins, True)

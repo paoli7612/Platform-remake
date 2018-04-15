@@ -1,4 +1,5 @@
 import pygame
+from settings import *
 
 class Spritesheet:
     # utility class for loading and parsing spritesheets
@@ -6,11 +7,11 @@ class Spritesheet:
         self.spritesheet = pygame.image.load(filename).convert()
         self.images = Images(self)
 
-    def get_image(self, x, y, width, height):
+    def get_image(self, x, y, width, height, zoom = ZOOM_FACTOR):
         # grab an image out of a larger spritesheet
         image = pygame.Surface((width, height))
         image.blit(self.spritesheet, (0, 0), (x, y, width, height))
-        image = pygame.transform.scale(image, (width // 2, height // 2))
+        image = pygame.transform.scale(image, (width // zoom, height // zoom))
         image.set_colorkey((0,0,0))
         return image
 
@@ -23,6 +24,7 @@ class Images:
         self.load_powerups()
         self.load_decors()
         self.load_icons()
+        self.load_suns()
 
     def load_icons(self):
         self.life = self.get_image(868,1936,52,71)
@@ -35,6 +37,9 @@ class Images:
         self.money.blit(bronze,(30,0))
         self.money.set_colorkey((0,0,0))
 
+    def load_suns(self):
+        self.sun = [self.get_image(534,913,142,148,1),
+            self.get_image(421,1390,148,142,1)]
 
     def load_decors(self):
         self.decors = {"sand": self.get_image(707,134,117,160),

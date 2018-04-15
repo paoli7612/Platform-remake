@@ -215,6 +215,27 @@ class Coin(pygame.sprite.Sprite):
             self.rect.bottom = self.plat.rect.top - 5
             self.rect.centerx = x
 
+class Sun(pygame.sprite.Sprite):
+    def __init__(self, game):
+        self._layer = SUN_LAYER
+        self.game = game
+        pygame.sprite.Sprite.__init__(self, game.all_sprites)
+        self.images = self.game.spritesheet.images.sun
+        self.current_frame = 0
+        self.image = self.images[self.current_frame]
+        self.rect = self.image.get_rect()
+        self.rect.center = 100,100
+        self.last_update = 0
+
+    def update(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_update > SUN_SPEED:
+            self.last_update = now
+            self.current_frame = (self.current_frame + 1) % len(self.images)
+            self.image = self.images[self.current_frame]
+            self.rect = self.image.get_rect()
+            self.rect.center = 100,100
+
 class Decor(pygame.sprite.Sprite):
     def __init__(self, game, plat):
         self._layer = DECOR_LAYER

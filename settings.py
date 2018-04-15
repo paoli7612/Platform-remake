@@ -21,6 +21,10 @@ PLAYER_FRICTION = -0.12
 PLAYER_GRAV = 0.8
 PLAYER_JUMP = 20
 
+# SUn properties
+SUN_SPEED = 200
+SUN_SIZE = int(WIDTH/3)
+
 # Coins properties
 COIN_SPEED = 100
 COINS_VALUE = {"gold":5, "silver":2, "bronze":1}
@@ -39,7 +43,9 @@ MOB_LAYER = 3
 COIN_LAYER = 4
 DECOR_LAYER = 1
 CLOUD_LAYER = 0
+SUN_LAYER = 0
 
+ZOOM_FACTOR = 2
 # Starting platforms
 from random import randrange
 PLATFORM_LIST = [(0, HEIGHT - 60)]
