@@ -28,9 +28,9 @@ class Images:
 
     def load_icons(self):
         self.life = self.get_image(868,1936,52,71)
-        bronze = self.get_image(329,1390,60,61)
-        silver = self.get_image(307,1981,61,61)
-        gold = self.get_image(244,1981,61,61)
+        bronze = self.get_image(329,1390,60,61,2)
+        silver = self.get_image(307,1981,61,61,2)
+        gold = self.get_image(244,1981,61,61,2)
         self.money = pygame.Surface((90,61))
         self.money.blit(gold,(0,0))
         self.money.blit(silver,(15,0))

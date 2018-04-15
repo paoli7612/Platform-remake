@@ -45,7 +45,7 @@ DECOR_LAYER = 1
 CLOUD_LAYER = 0
 SUN_LAYER = 0
 
-ZOOM_FACTOR = 2
+ZOOM_FACTOR = 3
 # Starting platforms
 from random import randrange
 PLATFORM_LIST = [(0, HEIGHT - 60)]
