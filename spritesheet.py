@@ -95,3 +95,13 @@ class Images:
             jumping = self.get_image(382, 763, 150, 181)
             falling = self.get_image(382, 946, 150, 174)
         self.bunny = Frames
+        class Frames(object):
+            standing = [self.get_image(581, 1265, 121, 191),
+                        self.get_image(584, 0, 121, 201)]
+            walking_r = [self.get_image(584, 203, 121, 201),
+                        self.get_image(678, 651, 121, 207)]
+            walking_l = [pygame.transform.flip(walking_r[0], True, False),
+                        pygame.transform.flip(walking_r[1], True, False)]
+            jumping = self.get_image(416, 1660, 150, 181)
+            falling = self.get_image(411, 1866, 150, 174)
+        self.female_bunny = Frames
