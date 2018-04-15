@@ -6,9 +6,10 @@ except:
 # game options/settings
 TITLE = "Jumpy!"
 WIDTH = 480
+CENTERX = WIDTH/2
 SIZE = (WIDTH,HEIGHT)
 
-TOT_PLATFORMS = HEIGHT/100 - 1
+TOT_PLATFORMS = int(HEIGHT/100) - 1
 FPS = 60
 FONT_NAME = 'arial'
 HS_FILE = "highscore.txt"
