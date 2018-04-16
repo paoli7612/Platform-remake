@@ -188,7 +188,7 @@ class Coin(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.plat = plat
-        types = self.game.spritesheet.images.coin.keys()
+        types = list(self.game.spritesheet.images.coin.keys())
         prob = randrange(100)
         for k in COINS_PCT:
             if prob <= COINS_PCT[k]: self.type = k; break

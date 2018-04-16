@@ -27,7 +27,7 @@ class Images:
         self.load_suns()
 
     def load_icons(self):
-        self.life = self.get_image(868,1936,52,71)
+        self.life = self.get_image(868,1936,52,71,2)
         bronze = self.get_image(329,1390,60,61,2)
         silver = self.get_image(307,1981,61,61,2)
         gold = self.get_image(244,1981,61,61,2)
