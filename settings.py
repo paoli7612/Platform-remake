@@ -53,7 +53,7 @@ for p in range(TOT_PLATFORMS):
     PLATFORM_LIST += [(randrange(0,WIDTH-200),p*HEIGHT/TOT_PLATFORMS)]
 
 
-PLATFORM_TYPES = ["grass","cake","sand","snow","wood"]
+PLATFORM_TYPES = ["grass","cake","sand","snow","wood","stone"]
 # define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
