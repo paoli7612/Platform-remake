@@ -85,7 +85,7 @@ class Images:
                         self.get_image(218, 1558, 200, 100)]}
 
     def load_bunny(self):
-        class Frames(object):
+        class Bunny(object):
             standing = [self.get_image(614, 1063, 120, 191),
                         self.get_image(690, 406, 120, 201)]
             walking_r = [self.get_image(678, 860, 120, 201),
@@ -94,8 +94,7 @@ class Images:
                         pygame.transform.flip(walking_r[1], True, False)]
             jumping = self.get_image(382, 763, 150, 181)
             falling = self.get_image(382, 946, 150, 174)
-        self.bunny = Frames
-        class Frames(object):
+        class Bunny_female(object):
             standing = [self.get_image(581, 1265, 121, 191),
                         self.get_image(584, 0, 121, 201)]
             walking_r = [self.get_image(584, 203, 121, 201),
@@ -104,4 +103,4 @@ class Images:
                         pygame.transform.flip(walking_r[1], True, False)]
             jumping = self.get_image(416, 1660, 150, 181)
             falling = self.get_image(411, 1866, 150, 174)
-        self.female_bunny = Frames
+        self.rabbits = [Bunny(),Bunny_female()]

@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.current_frame = 0
         self.last_update = 0
         self.life = 0
-        self.images = self.game.spritesheet.images.female_bunny
+        self.images = choice(self.game.spritesheet.images.rabbits)
         self.image = self.images.standing[0]
         self.rect = self.image.get_rect()
         self.rect.center = (40, HEIGHT - 100)

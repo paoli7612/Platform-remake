@@ -45,9 +45,9 @@ DECOR_LAYER = 1
 CLOUD_LAYER = 0
 SUN_LAYER = 0
 
-ZOOM_FACTOR = 3
 # Starting platforms
 from random import randrange
+ZOOM_FACTOR = randrange(2,4)
 PLATFORM_LIST = [(0, HEIGHT - 60)]
 for p in range(TOT_PLATFORMS):
     PLATFORM_LIST += [(randrange(0,WIDTH-200),p*HEIGHT/TOT_PLATFORMS)]
