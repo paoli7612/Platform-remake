@@ -6,15 +6,19 @@ L'aggiunta di monete d'oro, d'argento e di bronzo permette al nostro coniglio di
 
 #### Piattaforme
 Le piattaforme che inizialmente erano unicamente d'erba, vengono implementate con gli altri tipi contenuti nello spritesheet.
+Torta Neve Pietra Legno Sabbia Erba
 
-| Piattaforme          |           
-| ------------- |:-------------:| :-----------------------------------: | :-----------------------------------: |
-| Torta         | ![alt text](doc/img/cake.png "cake")  | ![alt text](doc/img/cake_small.png "cake_small")  |
-| Neve          | ![alt text](doc/img/snow.png "snow")  | ![alt text](doc/img/snow_small.png "snow_small")  |
-| Pietra        | ![alt text](doc/img/stone.png "stone") | ![alt text](doc/img/stone_small.png "stone_small")  |
-| Legno         | ![alt text](doc/img/wood.png "wood")  | ![alt text](doc/img/wood_small.png "wood_small")  |
-| Sabbia        | ![alt text](doc/img/sand.png "sand")  | ![alt text](doc/img/sand_small.png "sand_small")  |
-| Erba          | ![alt text](doc/img/grass.png "sand")  | ![alt text](doc/img/grass_small.png "sand_small")  |
+![alt text](doc/img/cake.png "cake")
+
+![alt text](doc/img/snow.png "snow")
+
+![alt text](doc/img/stone.png "stone")
+
+![alt text](doc/img/wood.png "wood")
+
+![alt text](doc/img/sand.png "sand")
+
+![alt text](doc/img/grass.png "sand")
 
 La scelta di quale piattaforma usare ogni volta che il programma ne genera una è totalmente casuale
 ```python
@@ -54,11 +58,9 @@ class Platform(...):
 #### Decorazioni
 Ogni volta che viene generata una piattaforma, c'è una possibilità che venga generato sopra di essa uno sprite di decorazione (per esempio il ciuffo d'erba sopra la piattaforma d'erba, il cactus sopra la piattaforma del deserto...)
 
-| Decorazioni |
-| ------------- |:-------------:| :-----------------------------------: | :---------------------------------------------: |
-| Legno         | ![alt text](doc/img/wood.png "wood")  | ![alt text](doc/img/mushroom.png "wood_small")  |
-| Sabbia        | ![alt text](doc/img/sand.png "sand")  | ![alt text](doc/img/cactus.png "sand_small")    |
-| Erba          | ![alt text](doc/img/grass.png "sand") | ![alt text](doc/img/tuft.png "sand_small")      |
+![alt text](doc/img/mushroom.png "wood_small")  
+![alt text](doc/img/cactus.png "sand_small")    
+![alt text](doc/img/tuft.png "sand_small")      
 
 
 #### Vite
