@@ -58,9 +58,7 @@ class Platform(...):
 #### Decorazioni
 Ogni volta che viene generata una piattaforma, c'è una possibilità che venga generato sopra di essa uno sprite di decorazione (per esempio il ciuffo d'erba sopra la piattaforma d'erba, il cactus sopra la piattaforma del deserto...)
 
-![alt text](doc/img/mushroom.png "wood_small")  
-![alt text](doc/img/cactus.png "sand_small")    
-![alt text](doc/img/tuft.png "sand_small")      
+![alt text](doc/img/mushroom.png "wood_small") ![alt text](doc/img/cactus.png "sand_small") ![alt text](doc/img/tuft.png "sand_small")      
 
 
 #### Vite
