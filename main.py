@@ -162,6 +162,12 @@ class Game:
             Platform(self, random.randrange(0, WIDTH - width),
                      random.randrange(-50, -40))
 
+    def pause(self):
+        self.writer.draw_text(self.screen, "PAUSE", HEIGHT/2)
+        self.writer.draw_text(self.screen, "press any key to continue", HEIGHT/4*3)
+        pygame.display.flip()
+        self.wait_for_key()
+
     def events(self):
         # Game Loop - events
         for event in pygame.event.get():
@@ -171,11 +177,10 @@ class Game:
                     self.playing = False
                 self.running = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.player.jump()
+                if event.key == pygame.K_SPACE: self.player.jump()
+                if event.key in [pygame.K_p, pygame.K_ESCAPE]: self.pause()
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_SPACE:
-                    self.player.jump_cut()
+                if event.key == pygame.K_SPACE: self.player.jump_cut()
 
     def draw(self):
         self.screen.fill(BGCOLOR)
@@ -218,7 +223,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     waiting = False
                     self.running = False
-                if event.type == pygame.KEYUP:
+                if event.type == pygame.KEYDOWN:
                     waiting = False
 
     def save_data(self):

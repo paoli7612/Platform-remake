@@ -8,17 +8,11 @@ L'aggiunta di monete d'oro, d'argento e di bronzo permette al nostro coniglio di
 Le piattaforme che inizialmente erano unicamente d'erba, vengono implementate con gli altri tipi contenuti nello spritesheet.
 Torta Neve Pietra Legno Sabbia Erba
 
-![alt text](doc/img/cake.png "cake")
+![alt text](doc/img/cake.png "cake") ![alt text](doc/img/snow.png "snow")
 
-![alt text](doc/img/snow.png "snow")
+![alt text](doc/img/stone.png "stone") ![alt text](doc/img/wood.png "wood")
 
-![alt text](doc/img/stone.png "stone")
-
-![alt text](doc/img/wood.png "wood")
-
-![alt text](doc/img/sand.png "sand")
-
-![alt text](doc/img/grass.png "sand")
+![alt text](doc/img/sand.png "sand") ![alt text](doc/img/grass.png "sand")
 
 La scelta di quale piattaforma usare ogni volta che il programma ne genera una è totalmente casuale
 ```python
@@ -36,7 +30,7 @@ PLATFORM_TYPES è una lista dichiarata nei setting che contiene i tipi di piatta
 ```python
 # setting.py
     ...
-    PLATFORM_TYPES = ["grass","cake","sand","snow","wood","stone"]
+    PLATFORM_TYPES = ["grass" ,"cake" ,"sand", "snow", "wood", "stone"]
     ...
 ```
 
@@ -85,6 +79,35 @@ class Game:
 #### Sole
 In alto a sinistra eccolo li sorridente lo sprite Sun che con la sua semplice animazione se ne sta fermo. Il parametro LAYER è ovviamente il più basso poichè non deve essere stampato sopra nessun altro sprite.
 
+![alt text](doc/img/sun.png "sun")
+
+#### Pausa
+Premento il tasto P o ESCAPE è ora possibilie mettere in pausa il loop di gioco stampando a monitor una scritta "PAUSE". quando verrà premuto un altro tasto il gioco prosegguira
+```python
+  # main.py
+  ...
+  def pause(self):
+      self.writer.draw_text(self.screen, "PAUSE", HEIGHT/2)
+      self.writer.draw_text(self.screen, "press any key to continue", HEIGHT/4*3)
+      pygame.display.flip()
+      self.wait_for_key()
+  ...
+
+```
+
+La quale funzione viene quindi lanciata quando viene premuto un qualsiasi tasto all'interno della lista degli specificati
+
+```python
+# main.py
+def events(self):
+    for event in pygame.event.get():
+        ...
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE: self.player.jump()
+            if event.key in [pygame.K_p, pygame.K_ESCAPE]: self.pause()
+        ...
+```
+
 #### Grandezza finestra
 Aggiunta la possibilità di aumentare la altezza della finestra di gioco, ovviamente in maniera automatica. Se quindi il programma riesce ad ottenere la funzione screen_height dal modulo gtk (quindi se è installato)
 
@@ -123,9 +146,7 @@ class Images:
     def load_images(self):
 ```
 
-Creiamo quindi un oggetto `Spritesheet` che contiene l'immagine "grande" e la funzione per ritagliarla, creiamo un oggetto di tipo `Images` che conterrà tutte le superfici/immagini ritagliate e ordinate.
-
-Quindi gli sprite potranno riferirsi all'immagine che vogliono eseguendo `self.program.images.<[immagine che vgliono]>`
+Creiamo quindi un oggetto `Spritesheet` che contiene l'immagine "grande" e la funzione per ritagliarla, creiamo un oggetto di tipo `Images` che conterrà tutte le superfici/immagini ritagliate e ordinate. Quindi gli sprite potranno riferirsi all'immagine che vogliono eseguendo `self.program.images.<[immagine che vgliono]>`
 
 per esempio:
 ```python
@@ -158,11 +179,19 @@ class Writer:
 ```
 
 Possiamo quindi vedere che ricreiamo il draw_text, solo che chiederà meno parametri.
-Il colore infatti rimane sempre bianco, il fontsize è sempre lo stesso (tranne quando il text che gli diamo è il titolo, loading, o game over). Le coordinate vengono semplificate: la x viene lasciata sempre al centro, unico caso in la funzione viene lanciata modificando il parametro di default è quando stampiamo a monitor i soldi attuali, che andranno a finire in alto a destra. Gli diciamo su quale superfice scrivere poichè se ki facesse sempre su quella principale dovremmo riscriverla ad ogni frame.
+Il colore infatti rimane sempre bianco, il fontsize è sempre lo stesso (tranne quando il text che gli diamo è il titolo, loading, o game over). Le coordinate vengono semplificate: la x viene lasciata sempre al centro, unico caso in la funzione viene lanciata modificando il parametro di default è quando stampiamo a monitor i soldi attuali, che andranno a finire in alto a destra. Gli diciamo su quale superfice scrivere poichè se ki facesse sempre su quella principal e dovremmo riscriverla ad ogni frame.
+
+## Strumenti
+
+### spritesheet_test.py
+Questo semplice tools utilizza il modulo spritesheet del nostro programma, si legge il file xml che contiene le coordinate di ogni sprite all'interno del immagine e ci permette di scorrerle mostrandoci il nome, le coordinate (se volessimo usarle nel proramma) e naturalmente l'immagine
+
+![alt text](doc/img/spritesheet_test.png)
+
 
 ## Cose da fare
 - Aggiungere i suoni alle monete, al powerups della vita
 - Permetti al gioco di "diventare notte", sostituire quindi il sole con la luna e mettere uno sfondo più scuro
-- Aggiungere uno shop per permettere di spendere le monete trovate
+- Aggiungere uno "shop" per permettere di spendere le monete trovate
 - Salvare i migliori 10 punteggi invece che solo l'ultimo
 - ...
