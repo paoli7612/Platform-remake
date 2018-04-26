@@ -4,6 +4,25 @@ La repository contiene una serie di modifiche al gioco JUMPY! pubblicato da kids
 #### Monete
 L'aggiunta di monete d'oro, d'argento e di bronzo permette al nostro coniglio di afferlarle durante la partita, esse vengono "salvate" in un nuovo contatore simile al punteggio totale che viene salvato a fine partita nel file "highscore" e visualizzato durante il gioco in alto a destra con la rispettiva icona.
 
+![alt text](doc/img/money_gold.png "mushroom") ![alt text](doc/img/money_silver.png "cactus") ![alt text](doc/img/money_bronze.png "tuft")
+
+Nei setting definiamo quindi la possibilità di generazione e il valore dei tre tipi:
+  - oro
+  - argento
+  - bronzo
+
+Inoltre definiamo anche la velocità di rotazione e la possibilità di generazione.
+```
+# settings.py
+...
+# Coins properties
+COIN_SPEED = 100
+COINS_VALUE = {"gold":5, "silver":2, "bronze":1}
+COIN_SPAWN_PCT = 20
+COINS_PCT = {"gold":10, "silver":30, "bronze":60}
+...
+```
+
 #### Piattaforme
 Le piattaforme che inizialmente erano unicamente d'erba, vengono implementate con gli altri tipi contenuti nello spritesheet.
 Torta Neve Pietra Legno Sabbia Erba
@@ -52,7 +71,7 @@ class Platform(...):
 #### Decorazioni
 Ogni volta che viene generata una piattaforma, c'è una possibilità che venga generato sopra di essa uno sprite di decorazione (per esempio il ciuffo d'erba sopra la piattaforma d'erba, il cactus sopra la piattaforma del deserto...)
 
-![alt text](doc/img/mushroom.png "wood_small") ![alt text](doc/img/cactus.png "sand_small") ![alt text](doc/img/tuft.png "sand_small")      
+![alt text](doc/img/mushroom.png "mushroom") ![alt text](doc/img/cactus.png "cactus") ![alt text](doc/img/tuft.png "tuft")      
 
 
 #### Vite
