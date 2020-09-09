@@ -2,7 +2,7 @@ try:
     from gtk import gdk
     HEIGHT = gdk.screen_height() - 200
 except:
-    HEIGHT = 800
+    HEIGHT = 600
 # game options/settings
 TITLE = "Jumpy!"
 WIDTH = 480
